@@ -1,0 +1,21 @@
+
+> client@0.0.0 build
+> ng build
+
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+✔ Browser application bundle generation complete.
+- Copying assets...
+✔ Copying assets complete.
+- Generating index html...
+✔ Index html generation complete.
+
+Initial Chunk Files           | Names         |  Raw Size | Estimated Transfer Size
+main.f98eb610ac61bb53.js      | main          | 223.33 kB |                60.62 kB
+polyfills.855e400880b24f09.js | polyfills     |  33.01 kB |                10.64 kB
+runtime.7ae29a296d479790.js   | runtime       | 890 bytes |               506 bytes
+styles.ef46db3751d8e999.css   | styles        |   0 bytes |                       -
+
+| Initial Total | 257.21 kB |                71.75 kB
+
+Build at: 2023-09-12T06:05:06.273Z - Hash: 259f40f3afbb28c0 - Time: 1467ms
