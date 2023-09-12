@@ -11,11 +11,11 @@
 ✔ Index html generation complete.
 
 Initial Chunk Files           | Names         |  Raw Size | Estimated Transfer Size
-main.9c22ef4d4ef5a03c.js      | main          | 249.70 kB |                66.47 kB
+main.693fd13ea4bb772f.js      | main          | 249.74 kB |                66.45 kB
 polyfills.855e400880b24f09.js | polyfills     |  33.01 kB |                10.64 kB
 runtime.6a84378ee9791542.js   | runtime       |   1.12 kB |               618 bytes
 styles.ef46db3751d8e999.css   | styles        |   0 bytes |                       -
 
-| Initial Total | 283.83 kB |                77.72 kB
+| Initial Total | 283.87 kB |                77.70 kB
 
-Build at: 2023-09-12T19:54:28.642Z - Hash: f135fd54bb3335d9 - Time: 1676ms
+Build at: 2023-09-12T21:07:35.764Z - Hash: 3067322f6a70517d - Time: 4648ms
