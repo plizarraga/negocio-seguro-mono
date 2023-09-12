@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment.development';
 
-const config: SocketIoConfig = { url: '/api', options: {} };
+const config: SocketIoConfig = { url: environment.webSocketUrl, options: {} };
 @NgModule({
   declarations: [AppComponent],
   imports: [
