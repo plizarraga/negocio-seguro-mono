@@ -6,20 +6,7 @@ import { EventCreatedEvent } from './events/event-created.event';
 
 @Injectable()
 export class EventsService {
-  public events: Event[] = [
-    {
-      id: 1,
-      deviceId: 'Device #1',
-      batteryLevel: '80%',
-      eventType: 'SINGLE_CLICK',
-    },
-    {
-      id: 2,
-      deviceId: 'Device #1',
-      batteryLevel: '75%',
-      eventType: 'DOUBLE_CLICK',
-    },
-  ];
+  public events: Event[] = [];
 
   constructor(private eventEmitter: EventEmitter2) {}
 
