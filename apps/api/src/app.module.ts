@@ -14,6 +14,7 @@ import { UsersModule } from './users/users.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { ButtonsModule } from './buttons/buttons.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ButtonsModule } from './buttons/buttons.module';
     AlertsModule,
     AddressesModule,
     ButtonsModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [],
