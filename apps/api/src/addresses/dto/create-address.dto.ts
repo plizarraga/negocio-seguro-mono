@@ -12,8 +12,4 @@ export class CreateAddressDto {
   @MinLength(10)
   @MaxLength(10)
   phone: string;
-
-  // @ApiProperty()
-  // @IsString()
-  // userId: string;
 }
