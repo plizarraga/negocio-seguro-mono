@@ -43,6 +43,11 @@ export class ButtonsController {
     return this.buttonsService.findOne(id, user);
   }
 
+  // @Get('code/:code')
+  // findOneByCode(@Param('code') code: string) {
+  //   return this.buttonsService.getButtonByCode(code);
+  // }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

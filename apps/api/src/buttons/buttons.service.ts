@@ -146,6 +146,13 @@ export class ButtonsService {
     }
   }
 
+  async getButtonByCode(code: string): Promise<Button | undefined> {
+    return await this.buttonRepository.findOne({
+      where: { code },
+      relations: ['address'],
+    });
+  }
+
   private async findButtonsByUserId(userId: string): Promise<Button[]> {
     return await this.buttonRepository
       .createQueryBuilder('button')
