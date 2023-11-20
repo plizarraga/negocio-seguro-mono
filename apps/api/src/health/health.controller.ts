@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   HealthCheckService,
   HttpHealthIndicator,
@@ -10,6 +11,7 @@ import {
 @Controller('health')
 export class HealthController {
   constructor(
+    private readonly configService: ConfigService,
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
     private db: TypeOrmHealthIndicator,
@@ -20,8 +22,7 @@ export class HealthController {
   @HealthCheck()
   check() {
     return this.health.check([
-      () =>
-        this.http.pingCheck('api/alerts', 'http://localhost:3000/api/alerts'),
+      () => this.http.pingCheck('api', this.configService.get('HOST')),
       () => this.db.pingCheck('database'),
       () => this.memory.checkHeap('memory_heap', 150 * 1024 * 1024),
     ]);
