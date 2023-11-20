@@ -6,26 +6,73 @@ import {
 } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { CreateAlertDto } from './dto/create-alert.dto';
 import { Alert } from './entities/alert.entity';
 import { AlertCreatedEvent } from './events/alert-created.event';
 import { ButtonsService } from 'src/buttons/buttons.service';
+import { User } from 'src/users/entities/user.entity';
+import { AddressesService } from 'src/addresses/addresses.service';
 
 @Injectable()
 export class AlertsService {
-  public alerts: Alert[] = [];
-
   constructor(
     private eventEmitter: EventEmitter2,
     @InjectRepository(Alert)
     private readonly alertRepository: Repository<Alert>,
     private readonly buttonsService: ButtonsService,
+    private readonly addressService: AddressesService,
     private readonly logger: Logger,
   ) {}
 
-  findAll(): Alert[] {
-    return this.alerts;
+  findAll(): Promise<Alert[]> {
+    return this.alertRepository.find();
+  }
+
+  // async findAllAlertsForUser(user: User): Promise<Alert[]> {
+  //   try {
+  //     // Assuming there's a relationship path from User to Address
+  //     const userWithAddresses = await this.userRepository.findOneOrFail({
+  //       relations: ['addresses'],
+  //       where: { id: user.id },
+  //     });
+
+  //     // Extract address IDs associated with the user
+  //     const addressIds = userWithAddresses.addresses.map(
+  //       (address) => address.id,
+  //     );
+
+  //     // Query alerts associated with the user's addresses
+  //     const alerts = await this.alertRepository.find({
+  //       where: { address: { id: { $in: addressIds } } },
+  //     });
+
+  //     return alerts;
+  //   } catch (error) {
+  //     // Handle not found or other errors
+  //     throw new NotFoundException('Alerts not found for the user');
+  //   }
+  // }
+
+  async findAllAlertsByUser(user: User): Promise<Alert[]> {
+    try {
+      // Get addresses associated with the user and select the address ID
+      const userAddressIds =
+        await this.addressService.findAllAddressesIDsByUserId(user.id);
+
+      // Extract address IDs associated with the user
+      const addressIds = userAddressIds.map((address) => address.id);
+
+      // Query alerts associated with the user's addresses
+      const userAlerts = await this.alertRepository.find({
+        where: { address: { id: In(addressIds) } },
+      });
+
+      return userAlerts;
+    } catch (error) {
+      // Handle not found or other errors
+      throw new NotFoundException('Alerts not foundor the user');
+    }
   }
 
   async create(createAlertDto: CreateAlertDto) {

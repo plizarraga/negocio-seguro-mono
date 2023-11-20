@@ -106,6 +106,14 @@ export class AddressesService {
     }
   }
 
+  async findAllAddressesIDsByUserId(userId: string): Promise<Address[]> {
+    return this.addressRepository
+      .createQueryBuilder('address')
+      .where('address.user_id = :userId', { userId })
+      .select('address.id')
+      .getMany();
+  }
+
   private async findAllAddressesByUserId(userId: string): Promise<Address[]> {
     return this.addressRepository
       .createQueryBuilder('address')
