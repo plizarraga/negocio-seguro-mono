@@ -4,9 +4,15 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+
+// Database configuration
 import { DataSourceConfig } from './config/data.source';
-import { EventsModule } from './events/events.module';
+
+// Features modules
+import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { EventsModule } from './events/events.module';
+import { AddressesModule } from './addresses/addresses.module';
 
 @Module({
   imports: [
@@ -19,8 +25,10 @@ import { UsersModule } from './users/users.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../..', 'client', 'dist', 'client'),
     }),
+    AuthModule,
     UsersModule,
     EventsModule,
+    AddressesModule,
   ],
   controllers: [],
   providers: [],

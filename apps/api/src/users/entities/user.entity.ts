@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { Address } from '../../addresses/entities/address.entity';
 import { BaseEntity } from '../../config/base.entity';
 import { ROLES } from '../../constants';
 
@@ -20,4 +21,7 @@ export class User extends BaseEntity {
 
   @Column({ type: 'enum', enum: ROLES, default: ROLES.USER })
   role: ROLES;
+
+  @OneToMany(() => Address, (address) => address.user)
+  addresses: Address[];
 }
