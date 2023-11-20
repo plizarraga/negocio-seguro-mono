@@ -1,8 +1,8 @@
-<ng-container *ngIf="alerts">
+<div [@fadeInOut]="alerts.length">
   <article *ngFor="let item of alerts">
     <p>
       <strong>Button:</strong>
-      {{ item.deviceId }} - {{ item.alertType }} - {{ item.batteryLevel }}
+      {{ item.deviceId }}
     </p>
     <p>
       <strong>Alert type:</strong>
@@ -13,7 +13,7 @@
       {{ item.batteryLevel }}
     </p>
   </article>
-</ng-container>
+</div>
 
 <!-- <article id="<%= dom_id(event) %>">
   <p>
