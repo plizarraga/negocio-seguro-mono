@@ -36,10 +36,7 @@ export class AddressesService {
 
   async findAll(user: User) {
     try {
-      return await this.addressRepository
-        .createQueryBuilder('address')
-        .where('address.user_id = :userId', { userId: user.id })
-        .getMany();
+      return await this.findAllAddressesByUserId(user.id);
     } catch (error) {
       this.logger.error(error.stack);
       throw new InternalServerErrorException('Could not fetch addresses:');
@@ -48,11 +45,7 @@ export class AddressesService {
 
   async findOne(id: string, user: User) {
     try {
-      const address = await this.addressRepository
-        .createQueryBuilder('address')
-        .where('address.user_id = :userId', { userId: user.id })
-        .andWhere('address.id = :id', { id: id })
-        .getOne();
+      const address = await this.findAddressByIdAndUserId(id, user.id);
 
       if (!address) {
         throw new NotFoundException('Address not found');
@@ -71,11 +64,7 @@ export class AddressesService {
 
   async update(id: string, updateAddressDto: UpdateAddressDto, user: User) {
     try {
-      const existingAddress = await this.addressRepository
-        .createQueryBuilder('address')
-        .where('address.user_id = :userId', { userId: user.id })
-        .andWhere('address.id = :id', { id: id })
-        .getOne();
+      const existingAddress = await this.findAddressByIdAndUserId(id, user.id);
 
       if (!existingAddress) {
         throw new NotFoundException('Address not found');
@@ -99,11 +88,7 @@ export class AddressesService {
 
   async remove(id: string, user: User) {
     try {
-      const existingAddress = await this.addressRepository
-        .createQueryBuilder('address')
-        .where('address.user_id = :userId', { userId: user.id })
-        .andWhere('address.id = :id', { id: id })
-        .getOne();
+      const existingAddress = await this.findAddressByIdAndUserId(id, user.id);
 
       if (!existingAddress) {
         throw new NotFoundException('Address not found');
@@ -119,5 +104,23 @@ export class AddressesService {
 
       throw new UnprocessableEntityException('Could not delete address');
     }
+  }
+
+  private async findAllAddressesByUserId(userId: string): Promise<Address[]> {
+    return this.addressRepository
+      .createQueryBuilder('address')
+      .where('address.user_id = :userId', { userId })
+      .getMany();
+  }
+
+  private async findAddressByIdAndUserId(
+    id: string,
+    userId: string,
+  ): Promise<Address | undefined> {
+    return this.addressRepository
+      .createQueryBuilder('address')
+      .where('address.user_id = :userId', { userId })
+      .andWhere('address.id = :id', { id })
+      .getOne();
   }
 }
