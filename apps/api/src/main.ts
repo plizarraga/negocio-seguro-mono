@@ -28,9 +28,11 @@ async function bootstrap() {
     .setTitle('Negocio Seguro')
     .setDescription('Negocio Seguro RESTful API documentation')
     .setVersion('1.0')
-    .addTag('Users')
     .addTag('Auth')
     .addTag('Addresses')
+    .addTag('Buttons')
+    .addTag('Events')
+    .addTag('Users')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
