@@ -12,13 +12,13 @@ import { Server } from 'socket.io';
 @WebSocketGateway({
   cors: { origin: '*' },
 })
-export class EventsGateway
+export class AlertsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   @WebSocketServer() server: Server;
 
   afterInit(server: any) {
-    console.log('afterInit: Esto se ejecuta cuando inicia');
+    console.log('AlertsGateway - afterInit: Esto se ejecuta cuando inicia');
   }
 
   handleConnection(client: any, ...args: any[]) {
@@ -31,7 +31,7 @@ export class EventsGateway
     console.log(`client id => ${client.id}`);
   }
 
-  @SubscribeMessage('event_created')
+  @SubscribeMessage('alert_created')
   eventCreated(@MessageBody() data: any) {
     return data;
   }

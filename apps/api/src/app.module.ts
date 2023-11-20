@@ -11,7 +11,7 @@ import { DataSourceConfig } from './config/data.source';
 // Features modules
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { EventsModule } from './events/events.module';
+import { AlertsModule } from './alerts/alerts.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { ButtonsModule } from './buttons/buttons.module';
 
@@ -28,7 +28,7 @@ import { ButtonsModule } from './buttons/buttons.module';
     }),
     AuthModule,
     UsersModule,
-    EventsModule,
+    AlertsModule,
     AddressesModule,
     ButtonsModule,
   ],

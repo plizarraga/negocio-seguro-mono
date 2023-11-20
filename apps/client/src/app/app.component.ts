@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-export interface Event {
+export interface Alert {
   id: number;
   deviceId: string;
-  eventType: string;
+  alertType: string;
   batteryLevel: string;
 }
 @Component({
@@ -15,22 +15,22 @@ export interface Event {
 export class AppComponent implements OnInit {
   private http = inject(HttpClient);
   title = 'client';
-  events: Event[] = [];
+  alerts: Alert[] = [];
 
   constructor(private socket: Socket) {}
 
   ngOnInit(): void {
-    this.http.get<Event[]>('/api/events').subscribe((res) => {
+    this.http.get<Alert[]>('/api/alerts').subscribe((res) => {
       console.log(res);
-      this.events = res;
+      this.alerts = res;
     });
     this.getCreatedEvent();
   }
 
   getCreatedEvent() {
-    return this.socket.fromEvent<Event>('event_created').subscribe((data) => {
+    return this.socket.fromEvent<Alert>('alert_created').subscribe((data) => {
       console.log(data);
-      this.events.unshift(data);
+      this.alerts.unshift(data);
     });
   }
 }

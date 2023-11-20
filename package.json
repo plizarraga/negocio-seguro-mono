@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "node apps/api/dist/main"
+    "start": "export NODE_ENV=production && node apps/api/dist/main"
   },
   "workspaces": [
     "apps/*"

@@ -1,6 +1,6 @@
-export class Event {
+export class Alert {
   id: number;
   deviceId: string;
-  eventType: string;
+  alertType: string;
   batteryLevel: string;
 }
