@@ -4,20 +4,21 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
-  Req,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { AddressesService } from './addresses.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { User } from 'src/users/entities/user.entity';
 import { UpdateAddressDto } from './dto/update-address.dto';
+import { UserDecorator } from 'src/common/user.decorator';
 
 @ApiTags('Addresses')
 @UseGuards(JwtAuthGuard)
@@ -30,38 +31,35 @@ export class AddressesController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createAddressDto: CreateAddressDto, @Req() request: Request) {
-    return this.addressesService.create(
-      createAddressDto,
-      request['user'] as User,
-    );
+  create(
+    @Body() createAddressDto: CreateAddressDto,
+    @UserDecorator() user: User,
+  ) {
+    return this.addressesService.create(createAddressDto, user);
   }
 
   @Get()
-  findAll(@Req() request: Request) {
-    return this.addressesService.findAll(request['user'] as User);
+  findAll(@UserDecorator() user: User) {
+    return this.addressesService.findAll(user);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Req() request: Request) {
-    return this.addressesService.findOne(id, request['user'] as User);
+  findOne(@Param('id') id: string, @UserDecorator() user: User) {
+    return this.addressesService.findOne(id, user);
   }
 
   @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() updateAddressDto: UpdateAddressDto,
-    @Req() request: Request,
+    @UserDecorator() user: User,
   ) {
-    return this.addressesService.update(
-      id,
-      updateAddressDto,
-      request['user'] as User,
-    );
+    return this.addressesService.update(id, updateAddressDto, user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @Req() request: Request) {
-    return this.addressesService.remove(id, request['user'] as User);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id') id: string, @UserDecorator() user: User) {
+    return this.addressesService.remove(id, user);
   }
 }

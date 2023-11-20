@@ -108,9 +108,8 @@ export class AddressesService {
       if (!existingAddress) {
         throw new NotFoundException('Address not found');
       }
-      const result = await this.addressRepository.remove(existingAddress);
 
-      return result;
+      return await this.addressRepository.remove(existingAddress);
     } catch (error) {
       this.logger.error(error.stack);
 
