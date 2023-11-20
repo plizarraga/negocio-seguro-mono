@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Injectable,
   Logger,
   UnauthorizedException,
@@ -13,6 +12,7 @@ import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
+import { DuplicateEmailException } from 'src/common/duplicate-email.exception';
 
 @Injectable()
 export class AuthService {
@@ -21,26 +21,29 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly logger: Logger,
   ) {}
-
-  async register({ email, firstName, lastName, password }: RegisterAuthDto) {
+  async register({
+    email,
+    firstName,
+    lastName,
+    password,
+  }: RegisterAuthDto): Promise<User> {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = {
+      const newUser = {
         firstName,
         lastName,
         email,
         password: hashedPassword,
         role: ROLES.ADMIN,
       };
-      return await this.userRepository.save(user);
+      const savedUser = await this.userRepository.save(newUser);
+      delete savedUser.password;
+      return savedUser;
     } catch (error) {
       this.logger.error(`${error.stack}`);
       // Unique constraint violation (e.g., duplicate email)
       if (error.code === '23505') {
-        // TODO - Create custom error exception for duplicate email
-        throw new BadRequestException(
-          'Email already exists. Please choose a different email.',
-        );
+        throw new DuplicateEmailException(email);
       }
       throw new UnprocessableEntityException(
         'Could not register user. Please try again later.',
