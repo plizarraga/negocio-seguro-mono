@@ -10,12 +10,23 @@
 - Generating index html...
 ✔ Index html generation complete.
 
-Initial Chunk Files           | Names         |  Raw Size | Estimated Transfer Size
-main.6e4eae9b3c709219.js      | main          | 250.77 kB |                66.88 kB
-polyfills.855e400880b24f09.js | polyfills     |  33.01 kB |                10.64 kB
-runtime.6a84378ee9791542.js   | runtime       |   1.12 kB |               618 bytes
-styles.ef46db3751d8e999.css   | styles        |   0 bytes |                       -
+Initial Chunk Files           | Names                                  |  Raw Size | Estimated Transfer Size
+main.47c70fa3eb99ddd2.js      | main                                   | 512.94 kB |               130.36 kB
+styles.17fb153c4735341a.css   | styles                                 | 356.27 kB |                21.65 kB
+polyfills.d67b734563aeb642.js | polyfills                              |  33.01 kB |                10.65 kB
+runtime.f1253d28ab36f5db.js   | runtime                                |   2.72 kB |                 1.32 kB
 
-| Initial Total | 284.90 kB |                78.13 kB
+| Initial Total                          | 904.95 kB |               163.98 kB
 
-Build at: 2023-11-20T08:13:17.280Z - Hash: a517786b2f0c4230 - Time: 2048ms
+Lazy Chunk Files              | Names                                  |  Raw Size | Estimated Transfer Size
+936.d3c33c4a564b0e02.js       | features-auth-auth-routes              |  33.08 kB |                 8.11 kB
+66.010d86fac33cf4f8.js        | features-alerts-alerts-routes          |   2.70 kB |                 1.16 kB
+519.fcbb89151b85265d.js       | features-dashboard-dashboard-component |   2.57 kB |               848 bytes
+779.b343f0607963543b.js       | features-profile-profile-routes        |   1.29 kB |               634 bytes
+147.e1eb7c52997cb786.js       | features-admin-admin-routes            | 527 bytes |               356 bytes
+
+Build at: 2023-11-21T05:33:58.870Z - Hash: a12f99cdc2f49749 - Time: 8111ms
+
+Warning: bundle initial exceeded maximum budget. Budget 500.00 kB was not met by 404.95 kB with a total of 904.95 kB.
+
+
