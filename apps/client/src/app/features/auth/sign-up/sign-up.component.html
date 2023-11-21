@@ -1,0 +1,146 @@
+<div
+  class="align-items-center flex justify-content-center lg:px-8 md:px-6 px-4 py-8 surface-ground"
+>
+  <div class="surface-card p-4 shadow-2 border-round w-full lg:max-w-30rem">
+    <div class="text-center mb-5">
+      <!-- <img
+            src="assets/images/blocks/logos/hyper.svg"
+            alt="Image"
+            height="50"
+            class="mb-3"
+          /> -->
+      <div class="text-900 text-3xl font-medium mb-3">Sign Up</div>
+      <span class="text-600 font-medium line-height-3"
+        >Already have an account?</span
+      >
+      <a
+        class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
+        [routerLink]="['/auth/signin']"
+        >Sign In!</a
+      >
+    </div>
+
+    <form
+      *ngIf="!isSuccessful"
+      [formGroup]="signUpForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="field mb-3">
+        <label for="email" class="block text-900 font-medium mb-2">Email</label>
+        <input
+          formControlName="email"
+          id="email"
+          type="text"
+          pInputText
+          class="w-full"
+        />
+        <ng-container *ngIf="submitted && f['email'].errors">
+          <small *ngIf="f['email'].errors['required']" class="p-error block"
+            >Email is required</small
+          >
+          <small *ngIf="f['email'].errors['email']" class="p-error block">
+            Email must be a valid email address
+          </small>
+        </ng-container>
+      </div>
+      <div class="field mb-3">
+        <label for="name" class="block text-900 font-medium mb-2">Name</label>
+        <input
+          formControlName="name"
+          id="name"
+          type="text"
+          pInputText
+          class="w-full"
+        />
+        <ng-container *ngIf="submitted && f['name'].errors">
+          <small *ngIf="f['name'].errors['required']" class="p-error block"
+            >Name is required</small
+          >
+          <small *ngIf="f['name'].errors['minlength']" class="p-error block"
+            >Name must contain at least 3 characters</small
+          >
+        </ng-container>
+      </div>
+
+      <div class="field mb-3">
+        <label for="phone" class="block text-900 font-medium mb-2">Phone</label>
+        <p-inputMask
+          formControlName="phone"
+          id="phone"
+          type="text"
+          styleClass="w-full"
+          mask="(999) 999-9999"
+        ></p-inputMask>
+        <ng-container *ngIf="submitted && f['phone'].errors">
+          <small *ngIf="f['phone'].errors['required']" class="p-error block"
+            >Phone is required</small
+          >
+        </ng-container>
+      </div>
+
+      <div class="field mb-3">
+        <label for="password" class="block text-900 font-medium mb-2"
+          >Password</label
+        >
+        <input
+          formControlName="password"
+          id="password"
+          type="password"
+          placeholder=""
+          pInputText
+          class="w-full"
+        />
+        <ng-container *ngIf="submitted && f['password'].errors">
+          <small *ngIf="f['password'].errors['required']" class="p-error block"
+            >Password is required</small
+          >
+          <small *ngIf="f['password'].errors['minlength']" class="p-error block"
+            >Password must contain at least 6 characters</small
+          >
+        </ng-container>
+      </div>
+
+      <div class="field mb-3">
+        <label
+          for="passwordConfirmation"
+          class="block text-900 font-medium mb-2"
+          >Password Confirmation</label
+        >
+        <input
+          formControlName="passwordConfirmation"
+          id="passwordConfirmation"
+          type="password"
+          pInputText
+          class="w-full"
+        />
+        <ng-container *ngIf="submitted && f['passwordConfirmation'].errors">
+          <small
+            *ngIf="f['passwordConfirmation'].errors['required']"
+            class="p-error block"
+            >Password Confirmation is required</small
+          >
+          <small
+            *ngIf="f['passwordConfirmation'].errors['matching']"
+            class="p-error block"
+            >Password does not match</small
+          >
+        </ng-container>
+      </div>
+
+      <p-button
+        label="Sign Up"
+        type="submit"
+        icon="pi pi-user"
+        styleClass="w-full"
+        [loading]="isLoading"
+      ></p-button>
+    </form>
+
+    <span *ngIf="submitted && isSuccessful">
+      We have just sent you an email to verify your account, when you receive
+      the email please follow the instructions, thank you.
+    </span>
+  </div>
+</div>
+
+<p-toast></p-toast>

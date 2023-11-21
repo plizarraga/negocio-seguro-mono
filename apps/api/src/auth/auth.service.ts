@@ -70,6 +70,13 @@ export class AuthService {
       const payload = { sub: user.id, email: user.email, role: user.role };
 
       return {
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+        },
         accessToken: this.jwtService.sign(payload),
       };
     } catch (error) {

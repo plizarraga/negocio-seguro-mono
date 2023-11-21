@@ -97,6 +97,7 @@ export class AlertsService {
       alertCreatedEvent.deviceId = alert.deviceId;
       alertCreatedEvent.batteryLevel = alert.batteryLevel;
       alertCreatedEvent.alertType = alert.alertType;
+      alertCreatedEvent.createdAt = alert.createdAt.toString();
       this.eventEmitter.emit('alert.created', alertCreatedEvent);
       return alert;
     } catch (error) {

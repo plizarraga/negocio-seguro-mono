@@ -1,4 +1,6 @@
 export const environment = {
-  webSocketUrl: 'http://localhost:3000',
-  // webSocketUrl: 'https://negocio-seguro-app.up.railway.app/',
+  APP_NAME: 'Negocio Seguro',
+  CREATED_BY: 'plizarraga',
+  API_URL: 'http://localhost:3000',
+  WEB_SOCKET_URL: 'http://localhost:3000',
 };

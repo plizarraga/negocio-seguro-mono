@@ -1,0 +1,85 @@
+<div
+  class="align-items-center flex justify-content-center lg:px-8 md:px-6 px-4 py-8 surface-ground ng-star-inserted"
+>
+  <div class="surface-card p-4 shadow-2 border-round w-full lg:max-w-30rem">
+    <div class="text-center mb-5">
+      <!-- <img
+            src="assets/images/blocks/logos/hyper.svg"
+            alt="Image"
+            height="50"
+            class="mb-3"
+          /> -->
+      <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
+      <!-- <span class="text-600 font-medium line-height-3"
+        >Don't have an account?</span
+      >
+      <a
+        class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
+        [routerLink]="['/auth/signup']"
+        >Create today!</a
+      > -->
+    </div>
+
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <div class="field mb-3">
+        <label for="email" class="block text-900 font-medium mb-2">Email</label>
+        <input
+          formControlName="email"
+          id="email"
+          type="text"
+          pInputText
+          class="w-full"
+        />
+        <ng-container *ngIf="submitted && f['email'].errors">
+          <small *ngIf="f['email'].errors['required']" class="p-error block"
+            >Email is required</small
+          >
+        </ng-container>
+      </div>
+
+      <div class="field mb-3">
+        <label for="password" class="block text-900 font-medium mb-2"
+          >Password</label
+        >
+        <input
+          formControlName="password"
+          id="password"
+          type="password"
+          placeholder=""
+          pInputText
+          class="w-full"
+        />
+        <ng-container *ngIf="submitted && f['password'].errors">
+          <small *ngIf="f['password'].errors['required']" class="p-error block"
+            >Password is required</small
+          >
+        </ng-container>
+      </div>
+
+      <!-- <div class="flex align-items-center justify-content-between mb-6">
+        <div class="flex align-items-center field-checkbox">
+          <p-checkbox
+            inputId="rememberme1"
+            [binary]="true"
+            styleClass="mr-2"
+          ></p-checkbox>
+          <label for="rememberme1" class="text-900">Remember me</label>
+        </div>
+        <a
+          class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
+          [routerLink]="['/auth/reset-password']"
+          >Forgot password?</a
+        >
+      </div> -->
+      <p-button
+        label="Sign In"
+        type="submit"
+        icon="pi pi-lock"
+        styleClass="w-full"
+        [loading]="isLoading"
+      ></p-button>
+    </form>
+  </div>
+</div>
+
+<p-toast></p-toast>
