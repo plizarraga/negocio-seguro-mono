@@ -49,8 +49,8 @@ export class SignInComponent {
 
   initSignInForm() {
     return (this.signInForm = this.formBuilder.group({
-      email: ['barry.allen@example.com', Validators.required],
-      password: ['123123', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     }));
   }
 
